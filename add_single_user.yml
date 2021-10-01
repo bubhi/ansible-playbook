@@ -1,0 +1,22 @@
+---
+- hosts: kgs
+  become: yes
+
+  roles:
+   - kgs_groups
+
+  vars:
+    GROUPS: "adm,sudo,fmri,docker,research-computing_sni-vcs,research-computing_sni-vcs-fmri,oak_kalanit,research-computing_sni-vcs-wandell,research-computing_sni-vcs-kalanit"
+
+
+  tasks:
+
+    - name: Bella Fascendini
+      user:
+        name: bfascend
+        comment: Bella Fascendini
+        uid: 401657
+        home: /share/kalanit/users/bfascend
+        shell: /bin/bash
+        groups: "{{ GROUPS }}"
+      ignore_errors: true

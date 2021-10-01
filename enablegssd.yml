@@ -1,0 +1,20 @@
+---
+- hosts: kgs
+  become: True
+  gather_facts: True
+  
+  vars:
+    SUNET: "ktully, dvelasqu, jeff888, kalanit, dfinzi, mgrotheer, eshedm, rosenke, arezai98, sonia09, mnordt, frq, ekubota, insubkim, hkular, vnatu, haji, ekupers"
+
+  tasks:
+
+    - name: Add oak_kalanit group
+      group:
+        name: "oak_kalanit"
+        state: present 
+
+    - name: Ensure all lab members are a member of oak_kalanit
+      user:
+        name: {{SUNET}}
+        groups: oak_kalanit
+        append: yes

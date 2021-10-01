@@ -1,0 +1,17 @@
+---
+- hosts: sechel
+  become: yes
+
+  roles:
+  # - kgs_groups
+
+  vars:
+    # GROUPS: "adm,sudo,fmri,docker,research-computing_sni-vcs,research-computing_sni-vcs-wandell,research-computing_sni-vcs-fmri,research-computing_sni-vcs-kalanit,oak_kalanit"
+
+  tasks:
+
+    - name: Update repositories cache and upgrade 'sudo' package to latest version. 
+      apt:
+        name: sudo
+        state: latest
+        cache_valid_time: 600

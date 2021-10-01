@@ -1,0 +1,20 @@
+---
+- hosts: kgs
+  become: yes
+
+  roles:
+  # - kgs_groups
+
+  vars:
+    # GROUPS: "adm,sudo,fmri,docker,research-computing_sni-vcs,research-computing_sni-vcs-wandell,research-computing_sni-vcs-fmri,research-computing_sni-vcs-kalanit,oak_kalanit"
+
+  tasks:
+
+    - name: Update repositories cache and upgrade 'sudo' package to latest version. 
+      command: - name: Unmount a mounted volume
+  ansible.posix.mount:
+    path: /tmp/mnt-pnt
+    state: unmounted
+        name: sudo
+        state: latest
+        update_cache: yes

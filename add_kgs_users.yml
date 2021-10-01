@@ -1,0 +1,7 @@
+---
+- hosts: kgs
+  become: yes
+
+  roles:
+  - kgs_groups
+  - kgs_lab_user_access

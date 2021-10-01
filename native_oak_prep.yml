@@ -1,0 +1,7 @@
+---
+- hosts: rbg
+  become: yes
+
+  roles:
+  - kgs_groups
+  - kgs_oak_native

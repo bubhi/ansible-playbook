@@ -1,0 +1,24 @@
+---
+ hosts: 
+  become: yes
+
+  roles:
+  # - kgs_groups
+
+  vars:
+    LICENSENUMBER: "N947B-DH3EF-VHM34-74Q8Z-AH9N3"
+
+  tasks:
+
+    - name: Update repositories cache and upgrade 'sudo' package to latest version. 
+      apt:
+        name: sudo
+        state: latest
+        update_cache: yes
+
+    - name: Install the latest RealVNC client for Debian
+      apt:
+        deb: http://debian.stanford.edu/debian-stanford/pool/main/s/stanford-keyring/stanford-keyring_2010.01.27_all.deb
+    
+    - name: License RealVNC
+      command: vnclicense -add {{LICENSENUMBER}}

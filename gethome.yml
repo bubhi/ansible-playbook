@@ -1,0 +1,19 @@
+---
+- hosts: scully
+  become: yes
+
+
+  vars:
+    user: 
+      - "hkular"
+
+  tasks:
+    - name: get user home directory
+      shell: >
+             getent passwd {{ user }}  | awk -F: '{ print $6 }'
+      changed_when: false
+      register: user_home
+
+    - name: debug output
+      debug:
+        var: user_home.stdout

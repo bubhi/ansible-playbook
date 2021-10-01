@@ -1,0 +1,10 @@
+---
+- hosts: kgs
+  become: yes
+  serial: 20
+  vars:
+
+  pre_tasks:
+    
+  roles:
+    - update-debian

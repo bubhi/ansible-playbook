@@ -1,0 +1,43 @@
+---
+- hosts: 0siris
+  become: yes
+
+  vars:
+    LICENSENUMBER: "N947B-DH3EF-VHM34-74Q8Z-AH9N3"
+    CRYPTEDPASS: "$6$lUUuiCnjs.f$5UjAA44IeiOLrELEd5bl3q7AYzg2scfrl.fG5zuwOJooB1VyWtD4UiG9Lke98fUt0wO2iYq7bqgYkiAxw6snS."
+  tasks:
+
+    - name: Install the latest RealVNC client for Debian
+      apt:
+        deb: https://www.realvnc.com/connect/download/binary/latest/debian/64-bit/
+
+    - name: License RealVNC
+      command: vnclicense -add {{LICENSENUMBER}}
+      ignore_errors: yes
+
+    - name: Start service vncserver-x11-serviced, if not running
+      service:
+        name: vncserver-x11-serviced
+        state: started
+
+    - name: Enable service vncserver-x11-serviced, and not touch the running state
+      service:
+        name: vncserver-x11-serviced
+        enabled: yes
+
+    - name: Add the user 'vpnlvnc' with a specific uid and a primary group of 'admin'
+      user:
+        name: vpnlvnc
+        password: "{{CRYPTEDPASS}}"
+        group: sudo
+
+
+
+    # - name: Reboot the Debian or Ubuntu Workstation
+    #   reboot:
+    #     msg: "Reboot initiated by Ansible due to RealVNC Install"
+    #     connect_timeout: 5
+    #     reboot_timeout: 300
+    #     pre_reboot_delay: 0
+    #     post_reboot_delay: 30
+    #     test_command: uptime

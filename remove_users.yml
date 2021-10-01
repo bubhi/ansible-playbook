@@ -1,0 +1,23 @@
+---
+- hosts: 
+  become: yes
+
+  roles:
+  # - kgs_groups
+
+  vars:
+    #GROUPS: "adm,sudo,fmri,docker,research-computing_sni-vcs,research-computing_sni-vcs-fmri,oak_kalanit,research-computing_sni-vcs-wandell,research-computing_sni-vcs-kalanit"
+
+
+  tasks:
+
+    - name: Skyler Castillo-Wilson
+      user: 
+        name: skylerc
+        state: absent
+        comment: Skyler Castillo-Wilson
+        uid: 290167
+        home: /share/kalanit/users/skylerc
+        shell: /bin/false
+        groups: ''              # Remove From All Groups
+      #ignore_errors: true

@@ -1,0 +1,8 @@
+---
+- hosts: kgs
+  become: yes
+
+  roles:
+  - kgs_groups
+  - crc_administration
+ 

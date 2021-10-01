@@ -1,0 +1,17 @@
+---
+- hosts: 0din
+  become: yes
+
+  roles:
+
+  vars:
+
+  tasks:
+
+    - name: Unmount All NFS Volumes
+      command: umount -a -t nfs 
+      ignore_errors: yes
+    
+    - name: Mount All NFS Volumes
+      command: mount -av
+      ignore_errors: yes

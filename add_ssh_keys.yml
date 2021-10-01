@@ -1,0 +1,16 @@
+---
+- hosts: kgs
+  become: yes
+
+  vars:
+    PUBLICKEY: "ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBACjsKyqe9JDTpIFdjfxoA1WtOFs+EZSX/zW0uZSeZqePcQ7QgskVR5RBTVY8xuALt6VEzuGrGoMAr1ettQycHtO2QCKVQLTGGbNd2dCpzfXPAVK21uE0P38mftyLHL8nI2i5AMPU5ZH+4YIM6uSiU1zNFjij6MLEiY+wrkDiv9rckWpbQ== ktully@0din"
+    USER:
+      - ktully
+      - root
+  tasks:
+    - name: Add SSH keys for a given user
+      authorized_key:
+        user: "{{item}}"
+        state: present
+        key: "{{PUBLICKEY}}"
+      with_items: "{{USER}}"

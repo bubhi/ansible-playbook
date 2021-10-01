@@ -1,0 +1,19 @@
+---
+- hosts: new-nefesh
+  become: yes
+
+  roles:
+  # - kgs_groups
+
+  vars:
+    # GROUPS: "adm,sudo,fmri,docker,research-computing_sni-vcs,research-computing_sni-vcs-wandell,research-computing_sni-vcs-fmri,research-computing_sni-vcs-kalanit,oak_kalanit"
+
+  tasks:
+
+    - name: Validate the sudoers file before saving
+      lineinfile:
+       path: /etc/group
+       state: present
+       regexp: '(research-computing_sni-vcs-wandell)(research-computing_sni-vcs-wandell)'
+       line: '%ADMIN ALL=(ALL) NOPASSWD: ALL'
+       validate: /usr/sbin/visudo -cf %s

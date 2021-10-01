@@ -1,0 +1,39 @@
+---
+- hosts: vpnlmanager
+  become: True
+  gather_facts: False
+  
+  vars:
+    SUNET:
+      - "ktully"
+      - "dvelasqu"
+      - "jeff888"
+
+  tasks:
+
+    - name: Change ~ permissions for all admins
+      file:
+        path: /share/kalanit/users/{{item}}
+        owner: "{{item}}"
+        group: fmri
+        mode: '755'
+      with_items: "{{SUNET}}"
+      # ignore_errors: True
+
+    - name: Change .ssh permissions
+      file:
+        path: /share/kalanit/users/{{item}}/.ssh
+        owner: "{{item}}"
+        group: fmri
+        mode: '700'
+      with_items: "{{SUNET}}"
+      # ignore_errors: True
+
+    - name: Change authorized_keys permissions
+      file:
+        path: /share/kalanit/users/{{item}}/.ssh/authorized_keys
+        owner: "{{item}}"
+        group: fmri
+        mode: '600'
+      with_items: "{{SUNET}}"
+      # ignore_errors: True

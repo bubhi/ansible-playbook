@@ -1,0 +1,17 @@
+---
+- hosts: kgs
+  become: yes
+  serial: 2
+  vars:
+    PUBLICKEY: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQDduPLLXUWQ9ziS0q2SMdqlWv4gmuiilPkNWqQHq26i8AkIZfJ1/tC5LA5yipk16ruP2JeD5EZSp7pBWxOIXuEsbLOKRrsb9sBdM0roLZNkG8Mm6NWZViUb3D+8zCmOjNgvgIhJRWv3982H4DVk5ZCAojgk7jEseooU65yNugZXMhDsiPStQGwNms2Xxtjy/D9+mAbF7lZEc2xDVbvArtx6QVeoX7nSIoiZ29gK7E9doPd7tlFRGE7fIg8keYW04WVsRYjNabHM168DUUWhkz0IVwFLDTzCu7F8ijvWZJfbLcwAekOEnyE/aHWWFdjAB9gPEmZgMQOZBAuMjYmHNH"
+    USER:
+      - root
+      - lmperry
+  tasks:
+    - name: Remove SSH keys for a given user
+      authorized_key:
+        user: "{{item}}"
+        state: absent
+        key: "{{PUBLICKEY}}"
+      with_items: "{{USER}}"
+

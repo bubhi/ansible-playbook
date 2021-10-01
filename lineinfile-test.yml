@@ -1,0 +1,30 @@
+---
+- hosts: new-nefesh
+  become: yes
+
+
+  tasks:
+
+  - name: Ensure /etc/group contains 'research-computing_sni-vcs-wandell'
+    lineinfile:
+     path: /etc/group
+     regexp: '(research-computing_sni-vcs-wandell)'
+     state: absent
+    check_mode: yes
+    changed_when: false
+    register: wandell
+
+  - debug:
+     msg: "Yes, 'research-computing_sni-vcs-wandell' exists in /etc/group."
+    when: wandell.found
+
+  - debug:
+     msg: "No, 'research-computing_sni-vcs-wandell' is NOT in /etc/group."
+    when: not wandell.found
+
+  - name: Add the 'research-computing_sni-vcs-wandell' to /etc/group
+    lineinfile:
+     path: /etc/group
+     state: present
+     line: 'research-computing_sni-vcs-wandell:x:2515:'
+    when: not wandell.found

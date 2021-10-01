@@ -1,0 +1,37 @@
+---
+############################################################
+########## KGS Lab | Base Research Endpoint Image ##########
+############################################################
+#
+# Kevin Tully
+# Stanford University, Computer Resource Consulting
+# https://uit.stanford.edu/crc
+#
+# Initial Version 05/08/2020
+# 
+# First used on 02/09/2021 on rbg.stanford.edu
+
+- hosts: new-nefesh
+  become: yes
+
+  roles:
+   - kgs_essential_software
+   - stanford_kerberos
+   - kgs_neurodebian
+   - kgs_groups
+   - kgs_oak_shares
+   - kgs_freesurfer
+   - crc_administration
+   - kgs_lab_user_access
+   - kgs_oak_native
+   # - kgs_remote_desktop
+   # - kgs_libvtk
+   # - geerlingguy.docker
+   # - kgs_desktop_ui_standards # Investigate whether this name really captures what this role does
+   # - kgs_itkgray
+   # - kgs_mrtrix
+   # - kgs_matlab
+   # - kgs_matlab_psych_toolbox
+   # - kgs_afni
+   # - kgs_vistasoft
+   # - kgs_fsl
